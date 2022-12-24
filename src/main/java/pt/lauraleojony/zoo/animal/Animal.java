@@ -1,10 +1,13 @@
 package pt.lauraleojony.zoo.animal;
 
-public abstract class Animal {
+import pt.lauraleojony.zoo.animal.mutacoes.Albinismo;
+import pt.lauraleojony.zoo.animal.mutacoes.Heterocromia;
+
+public abstract class Animal implements Albinismo, Heterocromia {
     
     private static int count = 0;
     private final int id;
-    private final String nome;
+    private String nome;
     private int idade;
     private final int atratividade;
     private final int apetiteReprodutivo;
@@ -18,7 +21,12 @@ public abstract class Animal {
         this.apetiteReprodutivo = apetiteReprodutivo;
     }
     
-    public void alimentar() {
+    public boolean determinarAlbinismo() {
+        return false;
+    }
+    
+    public boolean determinarHeterocromia() {
+        return false;
     }
 
     public static int getCount() {
@@ -28,17 +36,21 @@ public abstract class Animal {
     public int getId() {
         return id;
     }
+    
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public String getNome() {
         return nome;
     }
-
-    public int getIdade() {
-        return idade;
-    }
     
     public void setIdade(int idade) {
         this.idade = idade;
+    }
+    
+    public int getIdade() {
+        return idade;
     }
     
     public int getAtratividade() {
