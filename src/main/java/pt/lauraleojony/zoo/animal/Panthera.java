@@ -6,4 +6,6 @@ public abstract class Panthera extends Felino {
         super(nome, idade, atratividade, apetiteReprodutivo);
     }
     
+    public abstract void rugir();
+    
 }
