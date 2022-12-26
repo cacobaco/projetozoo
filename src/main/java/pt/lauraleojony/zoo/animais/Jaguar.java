@@ -1,6 +1,4 @@
-package pt.lauraleojony.zoo.animal.animals;
-
-import pt.lauraleojony.zoo.animal.Panthera;
+package pt.lauraleojony.zoo.animais;
 
 public class Jaguar extends Panthera {
     

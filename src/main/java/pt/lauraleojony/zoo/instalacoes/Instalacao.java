@@ -1,7 +1,7 @@
 package pt.lauraleojony.zoo.instalacoes;
 
 import java.util.ArrayList;
-import pt.lauraleojony.zoo.animal.Animal;
+import pt.lauraleojony.zoo.animais.Animal;
 
 public class Instalacao {
     

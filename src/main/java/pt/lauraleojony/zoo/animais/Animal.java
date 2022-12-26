@@ -1,7 +1,7 @@
-package pt.lauraleojony.zoo.animal;
+package pt.lauraleojony.zoo.animais;
 
-import pt.lauraleojony.zoo.animal.mutacoes.Albinismo;
-import pt.lauraleojony.zoo.animal.mutacoes.Heterocromia;
+import pt.lauraleojony.zoo.mutacoes.Albinismo;
+import pt.lauraleojony.zoo.mutacoes.Heterocromia;
 
 public abstract class Animal implements Albinismo, Heterocromia {
     

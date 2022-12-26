@@ -1,6 +1,4 @@
-package pt.lauraleojony.zoo.animal.animals;
-
-import pt.lauraleojony.zoo.animal.Felino;
+package pt.lauraleojony.zoo.animais;
 
 public class Chita extends Felino {
     

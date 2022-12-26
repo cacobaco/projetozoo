@@ -1,4 +1,4 @@
-package pt.lauraleojony.zoo.animal;
+package pt.lauraleojony.zoo.animais;
 
 public abstract class Panthera extends Felino {
     
