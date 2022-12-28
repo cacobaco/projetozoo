@@ -1,5 +1,9 @@
 package pt.lauraleojony.zoo.animais;
 
+/**
+ *
+ * @author leo
+ */
 public abstract class Felino extends Animal {
     
     private final double avgLife; 

@@ -3,6 +3,10 @@ package pt.lauraleojony.zoo.animais;
 import pt.lauraleojony.zoo.mutacoes.Albinismo;
 import pt.lauraleojony.zoo.mutacoes.Heterocromia;
 
+/**
+ *
+ * @author leo
+ */
 public abstract class Animal implements Albinismo, Heterocromia {
     
     private static int count = 0;

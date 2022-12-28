@@ -1,5 +1,9 @@
 package pt.lauraleojony.zoo.animais;
 
+/**
+ *
+ * @author leo
+ */
 public class Leao extends Panthera {
     
     public Leao(String nome) {

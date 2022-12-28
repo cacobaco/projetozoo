@@ -1,5 +1,9 @@
 package pt.lauraleojony.zoo.animais;
 
+/**
+ *
+ * @author leo
+ */
 public class Jaguar extends Panthera {
     
     public Jaguar(String nome) {
