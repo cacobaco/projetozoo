@@ -1,7 +1,6 @@
 package pt.lauraleojony.zoo;
 
 import java.util.ArrayList;
-import java.util.Map;
 import pt.lauraleojony.zoo.animais.Animal;
 import pt.lauraleojony.zoo.instalacoes.Instalacao;
 
@@ -15,16 +14,6 @@ public class Zoo {
     private int segurancas;
     private ArrayList<Instalacao> instalacoes;
     private ArrayList<Animal> animais;
-    
-    public ArrayList<Animal> getAnimaisEmInstalacao(Instalacao instalacao) {
-        ArrayList<Animal> arr = new ArrayList<>();
-                
-        for (Map.Entry<Animal, Instalacao> entry : animais.entrySet()) {
-            if (entry.getValue().equals(instalacao)) arr.add(entry.getKey());
-        }
-        
-        return arr;
-    }
     
     public void setDinheiro(double dinheiro) {
         this.dinheiro = dinheiro;
