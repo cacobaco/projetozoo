@@ -3,6 +3,7 @@ package pt.lauraleojony.zoo;
 import java.util.*;
 import pt.lauraleojony.zoo.instalacoes.*;
 import pt.lauraleojony.zoo.animais.*;
+import pt.lauraleojony.zoo.exceptions.*;
 
 /**
  *
@@ -11,7 +12,7 @@ import pt.lauraleojony.zoo.animais.*;
 public class Menu {
     
     private static final String[] TIPOS_ANIMAIS = new String[]{"Chita", "Jaguar", "Leão", "Tigre"}; // nome de todos os tipos de animais
-    private static final Map<String, Double> GENOMAS_PRECOS = Map.of("Panthera", Panthera.PRECO);
+    private static final Map<String, Integer> GENOMAS_PRECOS = Map.of("Panthera", Panthera.PRECO);
     private static final Map<String, String[]> GENOMAS_ANIMAIS = Map.of("Panthera", new String[]{"Jaguar", "Leão", "Tigre"});
     private final Zoo zoo;
     private final Scanner scanner;
@@ -111,6 +112,15 @@ public class Menu {
     public void criateRandomAnimal(){
         Animal[] animais = new Animal[3];
 
+        int custo = calcularCustoAquisicoes();
+        
+        try {
+            zoo.gastarDinheiro(custo);
+        } catch (DinheiroInsuficienteException ex) {
+            System.out.println("Não tem dinheiro suficiente para esta aquisição. Aquisição cancelada.");
+            return;
+        }
+        
         System.out.println("Escolha uma opção: ");
 
         for (int i = 0; i < 3; i++) {
@@ -147,6 +157,7 @@ public class Menu {
         } while (opcao >= 0 && opcao <= 3); // [1,3]
         
         if (opcao == 0) {
+            zoo.adicionarDinheiro(custo);
             System.out.println("Cancelou a aquisição.");
             return;
         }
@@ -160,12 +171,9 @@ public class Menu {
         String nome = scanner.nextLine();
 
         animal.setNome(nome);
-
-        int custo = calcularCustoAquisicoes();
-
-        zoo.removerDinheiro(custo);
+        
         zoo.adicionarAnimal(animal);
-        zoo.getHistorico().adicionarAquisicao(Zoo.getAno(), animal, custo);
+        zoo.getHistorico().adicionarAquisicao(animal, custo);
     }
     
     public void caracAnimal(){
@@ -175,7 +183,7 @@ public class Menu {
         
         int i = 0;
         for (String genoma : genomas) {
-            System.out.println(++i + " - " + genoma);
+            System.out.println(++i + " - " + genoma + " (" + GENOMAS_PRECOS.get(genoma) + "€)");
         }
         
         System.out.println("0 - Cancelar");
@@ -185,7 +193,7 @@ public class Menu {
         do {
             System.out.print("Digite o código da opção: ");
             opcao = scanner.nextInt();
-        } while (opcao >= 0 && opcao <= GENOMAS_ANIMAIS.size()); // [0, 1]
+        } while (opcao >= 0 && opcao <= GENOMAS_ANIMAIS.size());
         
         if (opcao == 0) {
             System.out.println("Cancelou a aquisição.");
@@ -195,6 +203,13 @@ public class Menu {
         String genoma = genomas[opcao - 1];
         
         double custo = GENOMAS_PRECOS.get(genoma);
+        
+        try {
+            zoo.gastarDinheiro(custo);
+        } catch (DinheiroInsuficienteException ex) {
+            System.out.println("Não tem dinheiro suficiente para esta aquisição. Aquisição cancelada.");
+            return;
+        }
         
         String[] animais = GENOMAS_ANIMAIS.get(genoma);
         
@@ -216,58 +231,21 @@ public class Menu {
                 animal = new Tigre(Zoo.getAno() - random.nextInt((int) (Tigre.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
                 break;
             default:
+                zoo.adicionarDinheiro(custo);
                 System.out.println("Ocorreu um erro, a aquisição foi cancelada.");
                 return;
         }
         
         System.out.println("Adquiriu " + animal + ".");
+        
         System.out.print("Digite o nome do animal: ");
 
         String nome = scanner.nextLine();
 
         animal.setNome(nome);
-
-        int custo = calcularCustoAquisicoes();
-
-        zoo.removerDinheiro(custo);
+        
         zoo.adicionarAnimal(animal);
-        zoo.getHistorico().adicionarAquisicao(Zoo.getAno(), animal, custo);
-    }
-    
-    public void caracAnimal(){
-        boolean caracteristica = false;
-        String nome = new String();
-        String get = new String();
-        while (caracteristica != true){ //o utilizador escrever a característica que quer desde que esteja na lista
-            for (int i = 0; i<animalcaracteristica.size() ; i++){
-                System.out.println( "Característica:"+animalcaracteristica.get(i)+"/n");
-                animalcaracteristica.get(i) a = new animalcaracteristica.get(i);
-                System.out.println("Preco: "+a.getPreco()+"/n");
-            }
-            get = scanner.nextLine();
-            if(animalcaracteristica.contains(get)){
-                caracteristica = true;
-            }
-            scanner.nextLine(); //limpar o scanner
-        }
-        
-        int rand = random.nextInt();
-        int idade = rand;
-        rand = random.nextInt(100);
-        int atratividade = rand;
-        rand = random.nextInt(100);
-        int apetiteReprodutivo = rand;
-        rand = random.nextInt(animaisPossiveis.size());
-        Animal a = new get(id, nome, idade, atratividade, apetiteReprodutivo);
-        
-        idAnimalSaidos.add(a.getId()); //adicionar aos id já saidos
-        
-        System.out.println("Qual é o nome que deseja dar ao animal?/n");
-        nome = scanner.nextLine();
-        a.setNome(nome);
-        
-        historico.setHistorico(a);
-        zoo.addAnimal(a);   
+        zoo.getHistorico().adicionarAquisicao(animal, custo);
     }
     
     public void construirInstalacao() {

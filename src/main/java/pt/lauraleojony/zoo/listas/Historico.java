@@ -1,6 +1,7 @@
 package pt.lauraleojony.zoo.listas;
 
 import java.util.ArrayList;
+import pt.lauraleojony.zoo.Zoo;
 import pt.lauraleojony.zoo.instalacoes.*;
 import pt.lauraleojony.zoo.animais.Animal;
 
@@ -16,20 +17,20 @@ public class Historico {
         historico = new ArrayList<>();
     }
     
-    public void adicionarAquisicao(int ano, Animal animal, int custo) {
-        historico.add("[" + ano + "] Novo animal adquirido por " + custo + "€ - " + animal);
+    public void adicionarAquisicao(Animal animal, double custo) {
+        historico.add("[" + Zoo.getAno() + "] Novo animal adquirido por " + custo + "€ - " + animal);
     }
     
-    public void adicionarConstrucao(int ano, Instalacao instalacao, int custo) {
-        historico.add("[" + ano + "] Nova instalação #" + instalacao.getId() + " construida por " + custo + "€");
+    public void adicionarConstrucao(Instalacao instalacao, double custo) {
+        historico.add("[" + Zoo.getAno() + "] Nova instalação #" + instalacao.getId() + " construida por " + custo + "€");
     }
     
-    public void adicionarNascimento(int ano, Animal animal) {
-        historico.add("[" + ano + "] Novo animal nasceu - " + animal);
+    public void adicionarNascimento(Animal animal) {
+        historico.add("[" + Zoo.getAno() + "] Novo animal nasceu - " + animal);
     }
     
-    public void adicionarObito(int ano, Animal animal) {
-        historico.add("[" + ano + "] Animal morreu - " + animal);
+    public void adicionarObito(Animal animal) {
+        historico.add("[" + Zoo.getAno() + "] Animal morreu - " + animal);
     }
     
     @Override

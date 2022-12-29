@@ -1,6 +1,7 @@
 package pt.lauraleojony.zoo.listas;
 
 import java.util.ArrayList;
+import pt.lauraleojony.zoo.Zoo;
 import pt.lauraleojony.zoo.animais.Animal;
 
 /**
@@ -15,8 +16,8 @@ public class Obituario {
         obituario = new ArrayList<>();
     }
     
-    public void adicionarObito(int ano, Animal animal) {
-        obituario.add("[" + ano + "] " + animal);
+    public void adicionarObito(Animal animal) {
+        obituario.add("[" + Zoo.getAno() + "] " + animal);
     }
     
     @Override
