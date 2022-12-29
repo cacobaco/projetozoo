@@ -11,7 +11,7 @@ import pt.lauraleojony.zoo.animais.*;
 public class Menu {
     
     private static final String[] TIPOS_ANIMAIS = new String[]{"Chita", "Jaguar", "Leão", "Tigre"}; // nome de todos os tipos de animais
-    private static final Map<String, Double> GENOMAS_ANIMAIS = Map.of("Panthera", Panthera.PRECO); // nome e preço de todos os genomas 
+    private static final Map<String, String> GENOMAS_ANIMAIS = Map.of("Jaguar", "Panthera", "Leão", "Panthera", "Tigre", "Panthera"); // nomes de todos os animais com genoma e respetivo genoma
     private final Zoo zoo;
     private final Scanner scanner;
     private final Random random;
@@ -22,59 +22,61 @@ public class Menu {
         this.random = new Random();
     }
     
-    // retorna true se o utilizador escolher sair da aplicação
-    public boolean menuPrincipal() {
-        escolhaOpcao();
+    public void menuPrincipal() {
+        boolean sair = false;
+        
+        while (!sair) {
+            escolhaOpcao();
+        
+            int opcao = scanner.nextInt();
 
-        int opcao = scanner.nextInt();
-
-        switch (opcao) {
-            case 0: // sair da aplicação
-                sair();
-                return true;
-            case 1: // adquirir animal aleatório
-                criateRandomAnimal();
-                break;
-            case 2: // adquirir animal com característica genética
-                caracAnimal();
-                break;
-            case 3: // construir instalação
-                construirInstalacao();
-                break;
-            case 4: // colocar animal em instalação
-                break;
-            case 5: // calendário chinês
-                break;
-            case 6: // listar animais
-                listaAnimais();
-                break;
-            case 7: // listar animais com dada característica genética
-                listaAnimaisCarateristica();
-                break;
-            case 8: // listar animais com dada mutação
-                listaAnimaisMutação();
-                break;
-            case 9: // listar instalações
-                listaInstalacao();
-                break;
-            case 10: // retrato de família animal
-                break;
-            case 11: // obituário
-                System.out.println(zoo.getObituario());
-                break;
-            case 12: // histórico
-                System.out.println(zoo.getHistorico());
-                break;
-            case 13: // periodo contabilistico
-                break;
-            case 14: // jumanji
-                break;
-            default:
-                System.out.println("Opção inválida.");
-                break;
+            switch (opcao) {
+                case 0: // sair da aplicação
+                    sair = true;
+                    sair();
+                    break;
+                case 1: // adquirir animal aleatório
+                    criateRandomAnimal();
+                    break;
+                case 2: // adquirir animal com característica genética
+                    caracAnimal();
+                    break;
+                case 3: // construir instalação
+                    construirInstalacao();
+                    break;
+                case 4: // colocar animal em instalação
+                    break;
+                case 5: // calendário chinês
+                    break;
+                case 6: // listar animais
+                    listaAnimais();
+                    break;
+                case 7: // listar animais com dada característica genética
+                    listaAnimaisCarateristica();
+                    break;
+                case 8: // listar animais com dada mutação
+                    listaAnimaisMutação();
+                    break;
+                case 9: // listar instalações
+                    listaInstalacao();
+                    break;
+                case 10: // retrato de família animal
+                    break;
+                case 11: // obituário
+                    System.out.println(zoo.getObituario());
+                    break;
+                case 12: // histórico
+                    System.out.println(zoo.getHistorico());
+                    break;
+                case 13: // periodo contabilistico
+                    break;
+                case 14: // jumanji
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+                    break;
+            }
         }
-
-        return false;
     }
     
     public void escolhaOpcao() {

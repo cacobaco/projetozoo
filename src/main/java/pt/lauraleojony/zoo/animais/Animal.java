@@ -1,6 +1,6 @@
 package pt.lauraleojony.zoo.animais;
 
-import java.util.Objects;
+import java.util.*;
 import pt.lauraleojony.zoo.animais.caracteristicas.Olhos;
 import pt.lauraleojony.zoo.animais.mutacoes.Albinismo;
 import pt.lauraleojony.zoo.animais.mutacoes.Heterocromia;
@@ -26,11 +26,13 @@ public abstract class Animal implements Olhos, Albinismo, Heterocromia {
         this.apetiteReprodutivo = apetiteReprodutivo;
     }
     
+    @Override
     public String determinarCorOlhoDireito() {
         int code = Objects.hash(id, anoNascimento) % CORES_OLHOS.length;
         return CORES_OLHOS[code];
     }
     
+    @Override
     public String determinarCorOlhoEsquerdo() {
         String direito = determinarCorOlhoDireito();
         
@@ -45,20 +47,30 @@ public abstract class Animal implements Olhos, Albinismo, Heterocromia {
                 }
             }
             
-            return direito;
+            return CORES_OLHOS[code];
         }
         
         return direito;
     }
     
+    @Override
     public boolean determinarAlbinismo() {
         int hash = Objects.hash(id, anoNascimento);
         System.out.println(hash);
-        return hash % 2 == 0;
+        return hash % 101 > 90;
     }
     
+    @Override
     public boolean determinarHeterocromia() {
-        return false;
+        int hash = Objects.hash(id, anoNascimento, determinarAlbinismo());
+        System.out.println(hash);
+        return hash % 101 > 90;
+    }
+    
+    // retorna true se o animal quiser reproduzir
+    public boolean tentarReproduzir() {
+        Random rand = new Random();
+        return rand.nextInt(101) < apetiteReprodutivo;
     }
     
     // getters & setters
