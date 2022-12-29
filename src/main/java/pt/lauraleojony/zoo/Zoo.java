@@ -2,6 +2,7 @@ package pt.lauraleojony.zoo;
 
 import java.util.ArrayList;
 import pt.lauraleojony.zoo.animais.Animal;
+import pt.lauraleojony.zoo.exceptions.DinheiroInsuficienteException;
 import pt.lauraleojony.zoo.instalacoes.*;
 import pt.lauraleojony.zoo.listas.*;
 
@@ -28,6 +29,16 @@ public class Zoo {
         this.dinheiro += dinheiro;
     }
     
+    // método para compras do zoo
+    public void gastarDinheiro(double dinheiro) throws DinheiroInsuficienteException {
+        if (this.dinheiro - dinheiro < 0) {
+            throw new DinheiroInsuficienteException("O Zoo não tem dinheiro suficiente para essa operação.");
+        } else {
+            this.dinheiro -= dinheiro;
+        }
+    }
+    
+    // método para ações fiscais etc, que podem deixar divida
     public void removerDinheiro(double dinheiro) {
         this.dinheiro -= dinheiro;
     }

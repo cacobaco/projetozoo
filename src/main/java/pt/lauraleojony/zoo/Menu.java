@@ -11,7 +11,8 @@ import pt.lauraleojony.zoo.animais.*;
 public class Menu {
     
     private static final String[] TIPOS_ANIMAIS = new String[]{"Chita", "Jaguar", "Leão", "Tigre"}; // nome de todos os tipos de animais
-    private static final Map<String, String> GENOMAS_ANIMAIS = Map.of("Jaguar", "Panthera", "Leão", "Panthera", "Tigre", "Panthera"); // nomes de todos os animais com genoma e respetivo genoma
+    private static final Map<String, Double> GENOMAS_PRECOS = Map.of("Panthera", Panthera.PRECO);
+    private static final Map<String, String[]> GENOMAS_ANIMAIS = Map.of("Panthera", new String[]{"Jaguar", "Leão", "Tigre"});
     private final Zoo zoo;
     private final Scanner scanner;
     private final Random random;
@@ -113,22 +114,20 @@ public class Menu {
         System.out.println("Escolha uma opção: ");
 
         for (int i = 0; i < 3; i++) {
-            Random rand = new Random();
-
-            String tipo = TIPOS_ANIMAIS[rand.nextInt(TIPOS_ANIMAIS.length)];
+            String tipo = TIPOS_ANIMAIS[random.nextInt(TIPOS_ANIMAIS.length)];
 
             switch (tipo) {
                 case "Chita":
-                    animais[i] = new Chita(Zoo.getAno() - rand.nextInt((int) (Chita.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
+                    animais[i] = new Chita(Zoo.getAno() - random.nextInt((int) (Chita.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
                     break;
                 case "Jaguar":
-                    animais[i] = new Jaguar(Zoo.getAno() - rand.nextInt((int) (Jaguar.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
+                    animais[i] = new Jaguar(Zoo.getAno() - random.nextInt((int) (Jaguar.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
                     break;
                 case "Leão":
-                    animais[i] = new Leao(Zoo.getAno() - rand.nextInt((int) (Leao.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
+                    animais[i] = new Leao(Zoo.getAno() - random.nextInt((int) (Leao.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
                     break;
                 case "Tigre":
-                    animais[i] = new Tigre(Zoo.getAno() - rand.nextInt((int) (Tigre.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
+                    animais[i] = new Tigre(Zoo.getAno() - random.nextInt((int) (Tigre.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
                     break;
                 default:
                     i--;
@@ -137,6 +136,8 @@ public class Menu {
 
             System.out.println((i + 1) + " - " + animais[i]);
         }
+        
+        System.out.println("0 - Cancelar");
 
         int opcao;
 
@@ -144,6 +145,11 @@ public class Menu {
             System.out.print("Digite o código da opção: ");
             opcao = scanner.nextInt();
         } while (opcao >= 0 && opcao <= 3); // [1,3]
+        
+        if (opcao == 0) {
+            System.out.println("Cancelou a aquisição.");
+            return;
+        }
 
         Animal animal = animais[opcao - 1];
 
@@ -163,49 +169,58 @@ public class Menu {
     }
     
     public void caracAnimal(){
-        Animal[] animais = new Animal[3];
-
         System.out.println("Escolha uma opção: ");
-
+        
+        String[] genomas = (String[]) GENOMAS_ANIMAIS.keySet().toArray();
+        
         int i = 0;
-        for (Map.Entry<String, Double> e : GENOMAS_ANIMAIS.entrySet()) {
-            System.out.println(++i + " - " + e.getKey() + " (" + e.getValue() + "€)");
-            Random rand = new Random();
-
-            String tipo = TIPOS_ANIMAIS[rand.nextInt(TIPOS_ANIMAIS.length)];
-
-            switch (tipo) {
-                case "Chita":
-                    animais[i] = new Chita(Zoo.getAno() - rand.nextInt((int) (Chita.VIDA_MEDIA * 0.5)), null);
-                    break;
-                case "Jaguar":
-                    animais[i] = new Jaguar(Zoo.getAno() - rand.nextInt((int) (Jaguar.VIDA_MEDIA * 0.5)), null);
-                    break;
-                case "Leão":
-                    animais[i] = new Leao(Zoo.getAno() - rand.nextInt((int) (Leao.VIDA_MEDIA * 0.5)), null);
-                    break;
-                case "Tigre":
-                    animais[i] = new Tigre(Zoo.getAno() - rand.nextInt((int) (Tigre.VIDA_MEDIA * 0.5)), null);
-                    break;
-                default:
-                    i--;
-                    continue;
-            }
-
-            System.out.println((i + 1) + " - " + animais[i]);
+        for (String genoma : genomas) {
+            System.out.println(++i + " - " + genoma);
         }
-
+        
+        System.out.println("0 - Cancelar");
+        
         int opcao;
-
+        
         do {
             System.out.print("Digite o código da opção: ");
             opcao = scanner.nextInt();
-        } while (opcao >= 0 && opcao <= 3); // [1,3]
-
-        Animal animal = animais[opcao - 1];
-
-        System.out.println("Escolheu: " + animal);
-
+        } while (opcao >= 0 && opcao <= GENOMAS_ANIMAIS.size()); // [0, 1]
+        
+        if (opcao == 0) {
+            System.out.println("Cancelou a aquisição.");
+            return;
+        }
+        
+        String genoma = genomas[opcao - 1];
+        
+        double custo = GENOMAS_PRECOS.get(genoma);
+        
+        String[] animais = GENOMAS_ANIMAIS.get(genoma);
+        
+        String tipo = animais[random.nextInt(animais.length)];
+        
+        Animal animal;
+        
+        switch (tipo) {
+            case "Chita":
+                animal = new Chita(Zoo.getAno() - random.nextInt((int) (Chita.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
+                break;
+            case "Jaguar":
+                animal = new Jaguar(Zoo.getAno() - random.nextInt((int) (Jaguar.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
+                break;
+            case "Leão":
+                animal = new Leao(Zoo.getAno() - random.nextInt((int) (Leao.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
+                break;
+            case "Tigre":
+                animal = new Tigre(Zoo.getAno() - random.nextInt((int) (Tigre.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
+                break;
+            default:
+                System.out.println("Ocorreu um erro, a aquisição foi cancelada.");
+                return;
+        }
+        
+        System.out.println("Adquiriu " + animal + ".");
         System.out.print("Digite o nome do animal: ");
 
         String nome = scanner.nextLine();
