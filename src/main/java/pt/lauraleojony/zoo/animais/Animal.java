@@ -19,8 +19,7 @@ public abstract class Animal implements Olhos, Albinismo, Heterocromia {
     private int apetiteReprodutivo;
     
     public Animal(int anoNascimento, String nome, int atratividade, int apetiteReprodutivo) {
-        count++;
-        this.id = count;
+        this.id = ++count;
         this.anoNascimento = anoNascimento;
         this.nome = nome;
         this.atratividade = atratividade;

@@ -58,4 +58,8 @@ public class Instalacao implements Limpavel {
         return empregados;
     }
     
+    public ArrayList<Animal> getAnimais() {
+        return animais;
+    }
+    
 }

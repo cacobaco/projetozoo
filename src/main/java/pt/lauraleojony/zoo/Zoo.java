@@ -51,6 +51,14 @@ public class Zoo {
         animais.remove(animal);
     }
     
+    // retorna a instalação de um animal ou null caso este não esteja numa instalação
+    public Instalacao getInstalacao(Animal animal) {
+        for (Instalacao instalacao : instalacoes) {
+            if (instalacao.getAnimais().contains(animal)) return instalacao;
+        }
+        return null;
+    }
+    
     // getters & setters
     public static void setAno(int ano) {
         Zoo.ano = ano;

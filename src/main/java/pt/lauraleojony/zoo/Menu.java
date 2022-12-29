@@ -16,7 +16,7 @@ public class Menu {
     private final Scanner scanner;
     private final Random random;
     
-    public Menu(Zoo zoo){
+    public Menu(Zoo zoo) {
         this.zoo = zoo;
         this.scanner = new Scanner(System.in);
         this.random = new Random();
@@ -99,7 +99,7 @@ public class Menu {
     
     public int calcularCustoAquisicoes() {
         if (zoo.getDinheiro() * 0.05 < 5000) {
-            return 15000;
+            return 5000;
         } else {
             return (int) (zoo.getDinheiro() * 0.05);
         }
@@ -117,16 +117,16 @@ public class Menu {
 
             switch (tipo) {
                 case "Chita":
-                    animais[i] = new Chita(Zoo.getAno() - rand.nextInt((int) (Chita.VIDA_MEDIA * 0.5)), null);
+                    animais[i] = new Chita(Zoo.getAno() - rand.nextInt((int) (Chita.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
                     break;
                 case "Jaguar":
-                    animais[i] = new Jaguar(Zoo.getAno() - rand.nextInt((int) (Jaguar.VIDA_MEDIA * 0.5)), null);
+                    animais[i] = new Jaguar(Zoo.getAno() - rand.nextInt((int) (Jaguar.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
                     break;
                 case "Leão":
-                    animais[i] = new Leao(Zoo.getAno() - rand.nextInt((int) (Leao.VIDA_MEDIA * 0.5)), null);
+                    animais[i] = new Leao(Zoo.getAno() - rand.nextInt((int) (Leao.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
                     break;
                 case "Tigre":
-                    animais[i] = new Tigre(Zoo.getAno() - rand.nextInt((int) (Tigre.VIDA_MEDIA * 0.5)), null);
+                    animais[i] = new Tigre(Zoo.getAno() - rand.nextInt((int) (Tigre.VIDA_MEDIA * 0.5)), null, random.nextInt(101), random.nextInt(101));
                     break;
                 default:
                     i--;
