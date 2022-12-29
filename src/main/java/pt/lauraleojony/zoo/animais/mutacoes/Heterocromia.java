@@ -1,4 +1,4 @@
-package pt.lauraleojony.zoo.mutacoes;
+package pt.lauraleojony.zoo.animais.mutacoes;
 
 public interface Heterocromia {
     

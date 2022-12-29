@@ -10,7 +10,6 @@ import pt.lauraleojony.zoo.listas.Obituario;
  * @author laura
  */
 public class Menu {
-    
     private static ArrayList<String> animaisPossiveis; //ter o nome de todos os animais possiveis
     private static ArrayList<String> animalcaracteristica; //ter todas as características possíveis
     private static ArrayList<Integer> idAnimalSaidos; //ter o id de tudos os animais tirados
@@ -19,7 +18,7 @@ public class Menu {
     private Historico historico;
     private Obituario obituario;
     private Zoo zoo;
-    private Instalacao instalacao;
+    private Instalacao inst;
     
     public Menu(){
         animaisPossiveis = new ArrayList<String>();
@@ -30,7 +29,7 @@ public class Menu {
         Historico historico = new Historico();
         Obituario obituario = new Obituario();
         Zoo zoo = new Zoo();
-        Instalacao instalacao = new Instalacao();
+        Instalacao inst = new Instalacao();
     }
     
     public void menuPrincipal() throws IOexecption{    
@@ -217,7 +216,7 @@ public class Menu {
     }
     
     public void listaAnimaisCarateristica(){
-        System.out.println("Qual é a catacteristica que deseja procurar?/n");
+        Sysytem.out.println("Qual é a catacteristica que deseja procurar?/n");
         String catacteristica = scanner.nextLine();
         ArrayList<Animal> animal = new ArrayList<Animal>();
         for (Map.Entry m : zoo.getHashMap().entrySet()){ //não ter instalações repetidas

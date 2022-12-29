@@ -6,8 +6,8 @@ package pt.lauraleojony.zoo.animais;
  */
 public class Chita extends Felino {
     
-    public Chita(String nome) {
-        super(nome, 0, 100, 100);
+    public Chita(int anoNascimento, String nome) {
+        super(anoNascimento, nome, 100, 100);
     }
     
 }

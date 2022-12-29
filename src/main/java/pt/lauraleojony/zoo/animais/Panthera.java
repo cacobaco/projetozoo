@@ -6,8 +6,8 @@ package pt.lauraleojony.zoo.animais;
  */
 public abstract class Panthera extends Felino {
     
-    public Panthera(String nome, int idade, int atratividade, int apetiteReprodutivo) {
-        super(nome, idade, atratividade, apetiteReprodutivo);
+    public Panthera(int anoNascimento, String nome, int atratividade, int apetiteReprodutivo) {
+        super(anoNascimento, nome, atratividade, apetiteReprodutivo);
     }
     
     public abstract void rugir();

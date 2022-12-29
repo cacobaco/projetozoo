@@ -6,8 +6,8 @@ package pt.lauraleojony.zoo.animais;
  */
 public class Tigre extends Panthera {
     
-    public Tigre(String nome) {
-        super(nome, 0, 100, 100);
+    public Tigre(int anoNascimento, String nome) {
+        super(anoNascimento, nome, 100, 100);
     }
     
     public void rugir() {

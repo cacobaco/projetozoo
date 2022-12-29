@@ -6,15 +6,10 @@ package pt.lauraleojony.zoo.animais;
  */
 public abstract class Felino extends Animal {
     
-    private final double avgLife; 
+    public static final double VIDA_MEDIA = 12.5;
     
-    public Felino(String nome, int idade, int atratividade, int apetiteReprodutivo) {
-        super(nome, idade, atratividade, apetiteReprodutivo);
-        this.avgLife = 100;
-    }
-        
-    public double getAvgLife() {
-        return this.avgLife;
+    public Felino(int anoNascimento, String nome, int atratividade, int apetiteReprodutivo) {
+        super(anoNascimento, nome, atratividade, apetiteReprodutivo);
     }
     
 }

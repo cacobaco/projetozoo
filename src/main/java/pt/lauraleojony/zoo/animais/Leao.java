@@ -6,8 +6,8 @@ package pt.lauraleojony.zoo.animais;
  */
 public class Leao extends Panthera {
     
-    public Leao(String nome) {
-        super(nome, 0, 100, 100);
+    public Leao(int anoNascimento, String nome) {
+        super(anoNascimento, nome, 100, 100);
     }
     
     public void rugir() {

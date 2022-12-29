@@ -6,6 +6,6 @@ package pt.lauraleojony.zoo.interfaces;
  */
 public interface Limpavel {
     
-    public void limpar();
+    public int calcularCustoLimpeza();
     
 }
