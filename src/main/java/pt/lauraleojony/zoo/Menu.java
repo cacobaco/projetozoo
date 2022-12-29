@@ -11,7 +11,7 @@ import pt.lauraleojony.zoo.animais.*;
 public class Menu {
     
     private static final String[] TIPOS_ANIMAIS = new String[]{"Chita", "Jaguar", "Leão", "Tigre"}; // nome de todos os tipos de animais
-    private static final String[] GENOMAS_ANIMAIS = new String[]{"Panthera"}; // nome de todos os genomas
+    private static final Map<String, Double> GENOMAS_ANIMAIS = Map.of("Panthera", Panthera.PRECO); // nome e preço de todos os genomas 
     private final Zoo zoo;
     private final Scanner scanner;
     private final Random random;
@@ -161,6 +161,63 @@ public class Menu {
     }
     
     public void caracAnimal(){
+        Animal[] animais = new Animal[3];
+
+        System.out.println("Escolha uma opção: ");
+
+        int i = 0;
+        for (Map.Entry<String, Double> e : GENOMAS_ANIMAIS.entrySet()) {
+            System.out.println(++i + " - " + e.getKey() + " (" + e.getValue() + "€)");
+            Random rand = new Random();
+
+            String tipo = TIPOS_ANIMAIS[rand.nextInt(TIPOS_ANIMAIS.length)];
+
+            switch (tipo) {
+                case "Chita":
+                    animais[i] = new Chita(Zoo.getAno() - rand.nextInt((int) (Chita.VIDA_MEDIA * 0.5)), null);
+                    break;
+                case "Jaguar":
+                    animais[i] = new Jaguar(Zoo.getAno() - rand.nextInt((int) (Jaguar.VIDA_MEDIA * 0.5)), null);
+                    break;
+                case "Leão":
+                    animais[i] = new Leao(Zoo.getAno() - rand.nextInt((int) (Leao.VIDA_MEDIA * 0.5)), null);
+                    break;
+                case "Tigre":
+                    animais[i] = new Tigre(Zoo.getAno() - rand.nextInt((int) (Tigre.VIDA_MEDIA * 0.5)), null);
+                    break;
+                default:
+                    i--;
+                    continue;
+            }
+
+            System.out.println((i + 1) + " - " + animais[i]);
+        }
+
+        int opcao;
+
+        do {
+            System.out.print("Digite o código da opção: ");
+            opcao = scanner.nextInt();
+        } while (opcao >= 0 && opcao <= 3); // [1,3]
+
+        Animal animal = animais[opcao - 1];
+
+        System.out.println("Escolheu: " + animal);
+
+        System.out.print("Digite o nome do animal: ");
+
+        String nome = scanner.nextLine();
+
+        animal.setNome(nome);
+
+        int custo = calcularCustoAquisicoes();
+
+        zoo.removerDinheiro(custo);
+        zoo.adicionarAnimal(animal);
+        zoo.getHistorico().adicionarAquisicao(Zoo.getAno(), animal, custo);
+    }
+    
+    public void caracAnimal(){
         boolean caracteristica = false;
         String nome = new String();
         String get = new String();
@@ -175,17 +232,8 @@ public class Menu {
                 caracteristica = true;
             }
             scanner.nextLine(); //limpar o scanner
-        } 
-        boolean id_possivel = false;
-        int id;
-            
-        while (id_possivel != true){  //faz um random novo ate nao existir o random vefito na lista de ids ja colocados
-            Integer rand_2 = random.nextInt();
-            if (idAnimalSaidos.contains(rand_2) != true){  //verifica se o id ja existe nouto animal
-                id = rand_2.intValue();
-                id_possivel = true;
-            }
         }
+        
         int rand = random.nextInt();
         int idade = rand;
         rand = random.nextInt(100);
