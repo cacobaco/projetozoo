@@ -5,6 +5,10 @@ import pt.lauraleojony.zoo.interfaces.Limpavel;
 import pt.lauraleojony.zoo.animais.Animal;
 import pt.lauraleojony.zoo.exceptions.InstalacaoCheiaException;
 
+/**
+ *
+ * @author jony
+ */
 public class Instalacao implements Limpavel {
     
     private static int count = 1;

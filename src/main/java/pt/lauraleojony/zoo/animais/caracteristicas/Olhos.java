@@ -2,7 +2,7 @@ package pt.lauraleojony.zoo.animais.caracteristicas;
 
 /**
  *
- * @author lcjmonizf09
+ * @author leo
  */
 public interface Olhos {
     

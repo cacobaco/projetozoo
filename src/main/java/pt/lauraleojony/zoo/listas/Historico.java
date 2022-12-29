@@ -5,7 +5,7 @@ import pt.lauraleojony.zoo.animais.Animal;
 
 /**
  *
- * @author lcjmonizf09
+ * @author leo
  */
 public class Historico {
     

@@ -225,7 +225,6 @@ public class Menu {
             case 1:
                 mapa.put(null , new Instalacao(tamanho[0]));
                 zoo.removerDinheiro(preco[0]);
-                dinheiro=dinheiro-preco[0];
                 break;
             case 2:
                 mapa.put(null , new Instalacao(tamanho[1]));
