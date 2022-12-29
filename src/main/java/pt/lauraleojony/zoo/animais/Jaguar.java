@@ -14,4 +14,10 @@ public class Jaguar extends Panthera {
         System.out.println("roar sou um jaguar");
     }
     
+    @Override
+    public String toString() {
+        String str = "Animal: Jaguar / " + super.toString();
+        return str;
+    }
+    
 }

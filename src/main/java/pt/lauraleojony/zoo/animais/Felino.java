@@ -12,4 +12,10 @@ public abstract class Felino extends Animal {
         super(anoNascimento, nome, atratividade, apetiteReprodutivo);
     }
     
+    @Override
+    public String toString() {
+        String str = "Espécie: Felino / " + super.toString();
+        return str;
+    }
+    
 }

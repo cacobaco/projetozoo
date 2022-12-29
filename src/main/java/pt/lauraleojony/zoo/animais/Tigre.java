@@ -14,4 +14,10 @@ public class Tigre extends Panthera {
         System.out.println("roar sou um tigre");
     }
     
+    @Override
+    public String toString() {
+        String str = "Animal: Tigre / " + super.toString();
+        return str;
+    }
+    
 }

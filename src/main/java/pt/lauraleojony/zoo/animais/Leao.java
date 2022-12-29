@@ -14,4 +14,10 @@ public class Leao extends Panthera {
         System.out.println("roar sou um leão");
     }
     
+    @Override
+    public String toString() {
+        String str = "Animal: Leão / " + super.toString();
+        return str;
+    }
+    
 }

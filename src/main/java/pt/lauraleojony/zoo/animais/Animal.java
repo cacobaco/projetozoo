@@ -1,6 +1,7 @@
 package pt.lauraleojony.zoo.animais;
 
 import java.util.*;
+import pt.lauraleojony.zoo.Zoo;
 import pt.lauraleojony.zoo.animais.caracteristicas.Olhos;
 import pt.lauraleojony.zoo.animais.mutacoes.Albinismo;
 import pt.lauraleojony.zoo.animais.mutacoes.Heterocromia;
@@ -71,6 +72,23 @@ public abstract class Animal implements Olhos, Albinismo, Heterocromia {
     public boolean tentarReproduzir() {
         Random rand = new Random();
         return rand.nextInt(101) < apetiteReprodutivo;
+    }
+    
+    @Override
+    public String toString() {
+        String str = "Nome: " + nome + " / Nasceu em: " + anoNascimento + " / Atratividade: " + atratividade + " / Apetite reprodutivo: " + apetiteReprodutivo;
+        return str;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != this.getClass()) return false;
+        
+        Animal a = (Animal) obj;
+        
+        return this.id == a.getId() && this.anoNascimento == a.getAnoNascimento() && this.nome.equals(a.getNome()) && this.atratividade == a.getAtratividade() && this.apetiteReprodutivo == a.getApetiteReprodutivo();
     }
     
     // getters & setters

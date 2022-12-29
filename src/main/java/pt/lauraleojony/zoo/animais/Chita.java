@@ -10,4 +10,10 @@ public class Chita extends Felino {
         super(anoNascimento, nome, atratividade, apetiteReprodutivo);
     }
     
+    @Override
+    public String toString() {
+        String str = "Animal: Chita / " + super.toString();
+        return str;
+    }
+    
 }

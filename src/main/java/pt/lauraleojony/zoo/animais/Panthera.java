@@ -14,4 +14,10 @@ public abstract class Panthera extends Felino {
     
     public abstract void rugir();
     
+    @Override
+    public String toString() {
+        String str = "Genôma: Panthera / " + super.toString();
+        return str;
+    }
+    
 }

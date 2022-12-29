@@ -62,4 +62,32 @@ public class Instalacao implements Limpavel {
         return animais;
     }
     
+    @Override
+    public String toString() {
+        String str = "----- @ Instalação #" + id + " @ -----\n";
+        str += "Capacidade: " + animais.size() + "/" + capacidade + "\n";
+        str += "Empregados: " + empregados + "\n";
+        str += "Animais: \n";
+        
+        int i = 0;
+        for (Animal a : animais) {
+            str  += ++i + ". " + a + "\n";
+        }
+        
+        str += "-------------------------\n";
+        
+        return str;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != this.getClass()) return false;
+        
+        Instalacao i = (Instalacao) obj;
+        
+        return this.id == i.getId() && this.capacidade == i.getCapacidade() && this.empregados == i.getEmpregados() && this.animais.equals(i.getAnimais());
+    }
+    
 }
