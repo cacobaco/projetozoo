@@ -11,159 +11,154 @@ import pt.lauraleojony.zoo.animais.*;
 public class Menu {
     
     private static final String[] TIPOS_ANIMAIS = new String[]{"Chita", "Jaguar", "Leão", "Tigre"}; // nome de todos os tipos de animais
+    private static final String[] GENOMAS_ANIMAIS = new String[]{"Panthera"}; // nome de todos os genomas
     private final Zoo zoo;
     private final Scanner scanner;
     private final Random random;
-    private ArrayList<String> animaisPossiveis; //ter o nome de todos os animais possiveis
-    private ArrayList<String> animalcaracteristica; //ter todas as características possíveis
-    private ArrayList<Integer> idAnimalSaidos; //ter o id de tudos os animais tirados
     
     public Menu(Zoo zoo){
         this.zoo = zoo;
         this.scanner = new Scanner(System.in);
         this.random = new Random();
-        this.animaisPossiveis = new ArrayList<>();
-        this.animalcaracteristica = new ArrayList<>();
-        this.idAnimalSaidos = new ArrayList<>();
     }
     
     // retorna true se o utilizador escolher sair da aplicação
-     public boolean menuPrincipal() {
-         escolhaOpcao();
+    public boolean menuPrincipal() {
+        escolhaOpcao();
 
-         int opcao = scanner.nextInt();
+        int opcao = scanner.nextInt();
 
-         switch (opcao) {
-             case 0: // sair da aplicação
-                 sair();
-                 return true;
-             case 1: // adquirir animal aleatório
-                 criateRandomAnimal();
-                 break;
-             case 2: // adquirir animal com característica genética
-                 caracAnimal();
-                 break;
-             case 3: // construir instalação
-                 construirInstalacao();
-                 break;
-             case 4: // colocar animal em instalação
-                 break;
-             case 5: // calendário chinês
-                 break;
-             case 6: // listar animais
-                 listaAnimais();
-                 break;
-             case 7: // listar animais com dada característica genética
-                 listaAnimaisCarateristica();
-                 break;
-             case 8: // listar animais com dada mutação
-                 listaAnimaisMutação();
-                 break;
-             case 9: // listar instalações
-                 listaInstalacao();
-                 break;
-             case 10: // retrato de família animal
-                 break;
-             case 11: // obituário
-                 System.out.println(zoo.getObituario());
-                 break;
-             case 12: // histórico
-                 System.out.println(zoo.getHistorico());
-                 break;
-             case 13: // periodo contabilistico
-                 break;
-             case 14: // jumanji
-                 break;
-             default:
-                 System.out.println("Opção inválida.");
-                 break;
-         }
+        switch (opcao) {
+            case 0: // sair da aplicação
+                sair();
+                return true;
+            case 1: // adquirir animal aleatório
+                criateRandomAnimal();
+                break;
+            case 2: // adquirir animal com característica genética
+                caracAnimal();
+                break;
+            case 3: // construir instalação
+                construirInstalacao();
+                break;
+            case 4: // colocar animal em instalação
+                break;
+            case 5: // calendário chinês
+                break;
+            case 6: // listar animais
+                listaAnimais();
+                break;
+            case 7: // listar animais com dada característica genética
+                listaAnimaisCarateristica();
+                break;
+            case 8: // listar animais com dada mutação
+                listaAnimaisMutação();
+                break;
+            case 9: // listar instalações
+                listaInstalacao();
+                break;
+            case 10: // retrato de família animal
+                break;
+            case 11: // obituário
+                System.out.println(zoo.getObituario());
+                break;
+            case 12: // histórico
+                System.out.println(zoo.getHistorico());
+                break;
+            case 13: // periodo contabilistico
+                break;
+            case 14: // jumanji
+                break;
+            default:
+                System.out.println("Opção inválida.");
+                break;
+        }
 
-         return false;
-     }
+        return false;
+    }
     
     public void escolhaOpcao() {
-         System.out.println("Escolha uma opção:");
-         System.out.println("1 - Adquirir animal aleatório (" + calcularCustoAquisicoes() + "€)");
-         System.out.println("2 - Adquirir animal com caracteristica genética");
-         System.out.println("3 - Construir instalação");
-         System.out.println("4 - Colocar animal em instalação");
-         System.out.println("5 - Calendário chinês");
-         System.out.println("6 - Listar animais");
-         System.out.println("7 - Listar animais com dada característica genética");
-         System.out.println("8 - Listar animais com dada mutação");
-         System.out.println("9 - Listar instalações");
-         System.out.println("10 - Retrato de família animal");
-         System.out.println("11 - Obituário");
-         System.out.println("12 - Histórico");
-         System.out.println("13 - Período contabilístico");
-         System.out.println("14 - Jumanji");
-         System.out.println("0 - Sair da aplicação");
-         System.out.print("Digite o código da opção: ");
+        System.out.println("Escolha uma opção:");
+        System.out.println("1 - Adquirir animal aleatório (" + calcularCustoAquisicoes() + "€)");
+        System.out.println("2 - Adquirir animal com caracteristica genética");
+        System.out.println("3 - Construir instalação");
+        System.out.println("4 - Colocar animal em instalação");
+        System.out.println("5 - Calendário chinês");
+        System.out.println("6 - Listar animais");
+        System.out.println("7 - Listar animais com dada característica genética");
+        System.out.println("8 - Listar animais com dada mutação");
+        System.out.println("9 - Listar instalações");
+        System.out.println("10 - Retrato de família animal");
+        System.out.println("11 - Obituário");
+        System.out.println("12 - Histórico");
+        System.out.println("13 - Período contabilístico");
+        System.out.println("14 - Jumanji");
+        System.out.println("0 - Sair da aplicação");
+        System.out.print("Digite o código da opção: ");
      }
     
     public int calcularCustoAquisicoes() {
-         if (zoo.getDinheiro() * 0.05 < 5000) {
-             return 15000;
-         } else {
-             return (int) (zoo.getDinheiro() * 0.05);
-         }
-     }
+        if (zoo.getDinheiro() * 0.05 < 5000) {
+            return 15000;
+        } else {
+            return (int) (zoo.getDinheiro() * 0.05);
+        }
+    }
     
     public void criateRandomAnimal(){
-         Animal[] animais = new Animal[3];
+        Animal[] animais = new Animal[3];
 
-         System.out.println("Escolha uma opção: ");
+        System.out.println("Escolha uma opção: ");
 
-         for (int i = 0; i < 3; i++) {
-             Random rand = new Random();
+        for (int i = 0; i < 3; i++) {
+            Random rand = new Random();
 
-             String tipo = TIPOS_ANIMAIS[rand.nextInt(TIPOS_ANIMAIS.length)];
+            String tipo = TIPOS_ANIMAIS[rand.nextInt(TIPOS_ANIMAIS.length)];
 
-             switch (tipo) {
-                 case "Chita":
-                     animais[i] = new Chita(Zoo.getAno() - rand.nextInt((int) (Chita.VIDA_MEDIA * 0.5)), null);
-                     break;
-                 case "Jaguar":
-                     animais[i] = new Jaguar(Zoo.getAno() - rand.nextInt((int) (Jaguar.VIDA_MEDIA * 0.5)), null);
-                     break;
-                 case "Leão":
-                     animais[i] = new Leao(Zoo.getAno() - rand.nextInt((int) (Leao.VIDA_MEDIA * 0.5)), null);
-                     break;
-                 case "Tigre":
-                     animais[i] = new Tigre(Zoo.getAno() - rand.nextInt((int) (Tigre.VIDA_MEDIA * 0.5)), null);
-                     break;
-                 default:
-                     i--;
-                     continue;
-             }
+            switch (tipo) {
+                case "Chita":
+                    animais[i] = new Chita(Zoo.getAno() - rand.nextInt((int) (Chita.VIDA_MEDIA * 0.5)), null);
+                    break;
+                case "Jaguar":
+                    animais[i] = new Jaguar(Zoo.getAno() - rand.nextInt((int) (Jaguar.VIDA_MEDIA * 0.5)), null);
+                    break;
+                case "Leão":
+                    animais[i] = new Leao(Zoo.getAno() - rand.nextInt((int) (Leao.VIDA_MEDIA * 0.5)), null);
+                    break;
+                case "Tigre":
+                    animais[i] = new Tigre(Zoo.getAno() - rand.nextInt((int) (Tigre.VIDA_MEDIA * 0.5)), null);
+                    break;
+                default:
+                    i--;
+                    continue;
+            }
 
-             System.out.println((i + 1) + " - " + animais[i]);
-         }
+            System.out.println((i + 1) + " - " + animais[i]);
+        }
 
-         int opcao;
+        int opcao;
 
-         do {
-             System.out.print("Digite o código da opção: ");
-             opcao = scanner.nextInt();
-         } while (opcao > 0 && opcao < 4); // [1,3]
+        do {
+            System.out.print("Digite o código da opção: ");
+            opcao = scanner.nextInt();
+        } while (opcao >= 0 && opcao <= 3); // [1,3]
 
-         Animal animal = animais[opcao - 1];
+        Animal animal = animais[opcao - 1];
 
-         System.out.println("Escolheu: " + animal);
+        System.out.println("Escolheu: " + animal);
 
-         System.out.print("Digite o nome do animal: ");
+        System.out.print("Digite o nome do animal: ");
 
-         String nome = scanner.nextLine();
+        String nome = scanner.nextLine();
 
-         animal.setNome(nome);
+        animal.setNome(nome);
 
-         int custo = calcularCustoAquisicoes();
+        int custo = calcularCustoAquisicoes();
 
-         zoo.removerDinheiro(custo);
-         zoo.adicionarAnimal(animal);
-         zoo.getHistorico().adicionarAquisicao(Zoo.getAno(), animal, custo);
-     }
+        zoo.removerDinheiro(custo);
+        zoo.adicionarAnimal(animal);
+        zoo.getHistorico().adicionarAquisicao(Zoo.getAno(), animal, custo);
+    }
     
     public void caracAnimal(){
         boolean caracteristica = false;
@@ -259,37 +254,76 @@ public class Menu {
     }
     
     public void listaAnimaisCarateristica(){
-        System.out.println("Qual é a catacteristica que deseja procurar?/n");
-        String catacteristica = scanner.nextLine();
-        ArrayList<Animal> animal = new ArrayList<Animal>();
-        for (Map.Entry m : zoo.getHashMap().entrySet()){ //não ter instalações repetidas
-            animal.add(m.getValue());
-            if (animal.catacteristica() == catacteristica){
-                animal.toString();
+        System.out.print("Digite a característica genética que deseja procurar: ");
+        
+        String caracteristica = scanner.nextLine();
+        
+        switch (caracteristica.toLowerCase()) {
+            case "panthera": {
+                String str = "----- @ Panthera @ -----\n";
+        
+                int i = 0;
+                for (Animal a : zoo.getAnimais()) {
+                    if (a instanceof Panthera) str  += ++i + ". " + a + "\n";
+                }
+
+                str += "-------------------------\n";
+
+                System.out.println(str);
+                break;
+            }
+            default: {
+                System.out.println("Característica genética inexistente.");
+                break;
             }
         }
     }
     
     public void listaAnimaisMutação(){
-        Sysytem.out.println("Qual é a mutacao que deseja procurar?/n");
+        System.out.print("Digite a mutação que deseja procurar: ");
+        
         String mutacao = scanner.nextLine();
-        ArrayList<Animal> animal = new ArrayList<Animal>();
-        for (Map.Entry m : zoo.getHashMap().entrySet()){ //não ter instalações repetidas
-            animal.add(m.getValue());
-            if (animal.mutacao() == mutacao){
-                animal.toString();
+        
+        switch (mutacao.toLowerCase()) {
+            case "albinismo": {
+                String str = "----- @ Albinismo @ -----\n";
+        
+                int i = 0;
+                for (Animal a : zoo.getAnimais()) {
+                    if (a.determinarAlbinismo()) str  += ++i + ". " + a + "\n";
+                }
+
+                str += "-------------------------\n";
+
+                System.out.println(str);
+                break;
+            }
+            case "heterocromia": {
+                String str = "----- @ Heterocromia @ -----\n";
+        
+                int i = 0;
+                for (Animal a : zoo.getAnimais()) {
+                    if (a.determinarHeterocromia()) str  += ++i + ". " + a + "\n";
+                }
+
+                str += "-------------------------\n";
+
+                System.out.println(str);
+                break;
+            }
+            default: {
+                System.out.println("Característica genética inexistente.");
+                break;
             }
         }
     }
     
     public void listaInstalacao(){
-        HashMap <Instalacao,Animal> mapa = new HashMap <Instalacao, Animal>();
-        for (Map.Entry m : zoo.getHashMap().entrySet()){ //não ter instalações repetidas
-            mapa.put(m.getValue(), m.getKey());
+        System.out.println("----- @ Instalações @ -----");
+        for (Instalacao instalacao : zoo.getInstalacoes()) {
+            System.out.println(instalacao);
         }
-        for (Map.Entry m : mapa.entrySet()){  //print tudas as instalações
-            System.out.println("Instalação "+m.getKey().toString());
-        }
+        System.out.println("-------------------------");
     }
     
     public void retatoFamiliaAnimal(){
