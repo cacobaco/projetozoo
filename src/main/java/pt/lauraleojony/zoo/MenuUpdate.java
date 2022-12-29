@@ -11,6 +11,7 @@ import pt.lauraleojony.zoo.animais.*;
 public class MenuUpdate {
     
     private static final String[] TIPOS_ANIMAIS = new String[]{"Chita", "Jaguar", "Leão", "Tigre"}; // nome de todos os tipos de animais
+    private static final String[] GENOMAS_ANIMAIS = new String[]{"Panthera"}; // nome de todos os genomas de animais
     private final Zoo zoo;
     
     public MenuUpdate(Zoo zoo) {
@@ -33,7 +34,7 @@ public class MenuUpdate {
                 adquirirAnimalAleatorio();
                 break;
             case 2: // adquirir animal com característica genética
-                adquirirAnimalCaracteristico();
+                adquirirAnimalComCaracteristica();
                 break;
             case 3: // construir instalação
                 break;
@@ -42,13 +43,13 @@ public class MenuUpdate {
             case 5: // calendário chinês
                 break;
             case 6: // listar animais
-                listaAnimais();
+                listarAnimais();
                 break;
             case 7: // listar animais com dada característica genética
-                listaAnimaisCarateristica();
+                listarAnimaisComCarateristica();
                 break;
             case 8: // listar animais com dada mutação
-                listaAnimaisMutação();
+                listarAnimaisComMutacao();
                 break;
             case 9: // listar instalações
                 listaInstalacao();
@@ -76,8 +77,8 @@ public class MenuUpdate {
     public void mostrarOpcoes() {
         System.out.println("Escolha uma opção:");
         System.out.println("1 - Adquirir animal aleatório (" + calcularCustoAquisicoes() + "€)");
-        System.out.println("2 - Adquirir animal com caracteristica genética (" + calcularCustoAquisicoes() + "€)");
-        System.out.println("3 - Construir instalação (" + calcularCustoInstalacao() + "€)");
+        System.out.println("2 - Adquirir animal com caracteristica genética");
+        System.out.println("3 - Construir instalação");
         System.out.println("4 - Colocar animal em instalação");
         System.out.println("5 - Calendário chinês");
         System.out.println("6 - Listar animais");
@@ -94,11 +95,11 @@ public class MenuUpdate {
     }
     
     public int calcularCustoAquisicoes() {
-        return 10000;
-    }
-    
-    public int calcularCustoInstalacao() {
-        return 50000;
+        if (zoo.getDinheiro() * 0.05 < 5000) {
+            return 15000;
+        } else {
+            return (int) (zoo.getDinheiro() * 0.05);
+        }
     }
     
     public void adquirirAnimalAleatorio(){
@@ -158,7 +159,20 @@ public class MenuUpdate {
         zoo.getHistorico().adicionarAquisicao(Zoo.getAno(), animal, custo);
     }
     
-    public void adquirirAnimalCaracteristico(){
+    public void adquirirAnimalComCaracteristica() {
+        System.out.println("Escolha uma opção:");
+        System.out.println("1. Panthera (" + Panthera.PRECO + "€)");
+        
+        Scanner scanner = new Scanner(System.in);
+        
+        int opcao;
+        
+        do {
+            System.out.print("Digite o código da opção: ");
+            opcao = scanner.nextInt();
+        } while (opcao > 0 && opcao < GENOMAS_ANIMAIS.length); // [1,3]
+        
+        
         boolean caracteristica = false;
         String nome = new String();
         String get = new String();
@@ -203,6 +217,39 @@ public class MenuUpdate {
         zoo.addAnimal(a);   
     }
     
+    public void construirInstalacao() {
+        
+        int[] tamanho = {random.nextInt(5)+1, random.nextInt(5)+1, random.nextInt(5)+1};
+        int[] preco = {random.nextInt(9000)+1000, random.nextInt(9000)+1000, random.nextInt(9000)+1000};
+        
+        for(int i=0; i<tamanho.length; i++){
+            System.out.println(i+": " + "Tamanho:" +tamanho[i]+ " " + "Preço:"+preco[i]);
+        }
+        
+        System.out.println("4: Cancelar");
+        System.out.println("Escreva a opção:");
+        int opcao = scanner.nextInt();
+        switch (opcao){
+            case 1:
+                mapa.put(null , new Instalacao(tamanho[0]));
+                dinheiro=dinheiro-preco[0];
+                break;
+            case 2:
+                mapa.put(null , new Instalacao(tamanho[1]));
+                dinheiro=dinheiro-preco[1];
+                break;
+            case 3:
+                mapa.put(null , new Instalacao(tamanho[2]));
+                dinheiro=dinheiro-preco[2];
+                break;
+            case 4:
+                break;
+            default:
+                    System.out.println("O número não existe.");
+                    break;
+        }
+    }
+    
     public void calendárioChines() {
         
     }
@@ -219,7 +266,7 @@ public class MenuUpdate {
         }
     }
     
-    public void listarAnimaisCarateristicos() s{
+    public void listarAnimaisComCarateristica() {
         Sysytem.out.println("Qual é a catacteristica que deseja procurar?/n");
         String catacteristica = scanner.nextLine();
         ArrayList<Animal> animal = new ArrayList<Animal>();
@@ -231,7 +278,7 @@ public class MenuUpdate {
         }
     }
     
-    public void listaAnimaisMutação(){
+    public void listarAnimaisComMutacao(){
         Sysytem.out.println("Qual é a mutacao que deseja procurar?/n");
         String mutacao = scanner.nextLine();
         ArrayList<Animal> animal = new ArrayList<Animal>();
