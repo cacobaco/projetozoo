@@ -1,38 +1,33 @@
 package pt.lauraleojony.zoo;
 
 import java.util.*;
+import pt.lauraleojony.zoo.instalacoes.*;
 import pt.lauraleojony.zoo.animais.Animal;
 import pt.lauraleojony.zoo.listas.Historico;
 import pt.lauraleojony.zoo.listas.Obituario;
-
 /**
  *
  * @author laura
  */
 public class Menu {
-    private static ArrayList<String> animaisPossiveis; //ter o nome de todos os animais possiveis
-    private static ArrayList<String> animalcaracteristica; //ter todas as características possíveis
-    private static ArrayList<Integer> idAnimalSaidos; //ter o id de tudos os animais tirados
-    private Random random;
-    private Scanner scanner;
-    private Historico historico;
-    private Obituario obituario;
-    private Zoo zoo;
-    private Instalacao inst;
     
-    public Menu(){
-        animaisPossiveis = new ArrayList<String>();
-        animalcaracteristica = new ArrayList<String>();
-        idAnimalSaidos = new ArrayList<Integer>();
-        scanner = new Scanner(System.in);
-        random = new Random();
-        Historico historico = new Historico();
-        Obituario obituario = new Obituario();
-        Zoo zoo = new Zoo();
-        Instalacao inst = new Instalacao();
+    private final Zoo zoo;
+    private final Scanner scanner;
+    private final Random random;
+    private ArrayList<String> animaisPossiveis; //ter o nome de todos os animais possiveis
+    private ArrayList<String> animalcaracteristica; //ter todas as características possíveis
+    private ArrayList<Integer> idAnimalSaidos; //ter o id de tudos os animais tirados
+    
+    public Menu(Zoo zoo){
+        this.zoo = zoo;
+        this.scanner = new Scanner(System.in);
+        this.random = new Random();
+        this.animaisPossiveis = new ArrayList<>();
+        this.animalcaracteristica = new ArrayList<>();
+        this.idAnimalSaidos = new ArrayList<>();
     }
     
-    public void menuPrincipal() throws IOexecption{    
+    public void menuPrincipal() {    
         escolhaOpcao();
         int escolha = scanner.nextInt();
         switch (escolha){
