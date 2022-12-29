@@ -24,16 +24,31 @@ public class Zoo {
         this.segurancas = segurancas;
     }
     
-    public void adicionarDinheiro(int dinheiro) {
+    public void adicionarDinheiro(double dinheiro) {
         this.dinheiro += dinheiro;
     }
     
-    public void removerDinheiro(int dinheiro) {
+    public void removerDinheiro(double dinheiro) {
         this.dinheiro -= dinheiro;
+    }
+    
+    public void adicionarInstalacao(Instalacao instalacao) {
+        instalacoes.add(instalacao);
+    }
+    
+    public void removerInstalacao(Instalacao instalacao) {
+        instalacoes.remove(instalacao);
     }
     
     public void adicionarAnimal(Animal animal) {
         animais.add(animal);
+    }
+    
+    public void removerAnimal(Animal animal) {
+        for (Instalacao instalacao : instalacoes) {
+            instalacao.removerAnimal(animal);
+        }
+        animais.remove(animal);
     }
     
     // getters & setters
