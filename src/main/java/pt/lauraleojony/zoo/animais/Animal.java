@@ -76,7 +76,7 @@ public abstract class Animal implements Olhos, Albinismo, Heterocromia {
     
     @Override
     public String toString() {
-        String str = "Nome: " + nome + " / Nasceu em: " + anoNascimento + " / Atratividade: " + atratividade + " / Apetite reprodutivo: " + apetiteReprodutivo;
+        String str = "Id: " + id + " / Nome: " + nome + " / Nasceu em: " + anoNascimento + " / Idade: " + (Zoo.getAno() - anoNascimento) + " / Atratividade: " + atratividade + " / Apetite reprodutivo: " + apetiteReprodutivo;
         return str;
     }
     

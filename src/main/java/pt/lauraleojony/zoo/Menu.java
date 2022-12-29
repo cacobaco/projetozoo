@@ -110,8 +110,6 @@ public class Menu {
     }
     
     public void criateRandomAnimal(){
-        Animal[] animais = new Animal[3];
-
         int custo = calcularCustoAquisicoes();
         
         try {
@@ -121,8 +119,10 @@ public class Menu {
             return;
         }
         
+        Animal[] animais = new Animal[3];
+        
         System.out.println("Escolha uma opção: ");
-
+        
         for (int i = 0; i < 3; i++) {
             String tipo = TIPOS_ANIMAIS[random.nextInt(TIPOS_ANIMAIS.length)];
 
@@ -249,35 +249,41 @@ public class Menu {
     }
     
     public void construirInstalacao() {
-        int[] tamanho = {random.nextInt(5)+1, random.nextInt(5)+1, random.nextInt(5)+1};
-        int[] preco = {random.nextInt(9000)+1000, random.nextInt(9000)+1000, random.nextInt(9000)+1000};
+        int[] capacidades = {random.nextInt(5) + 1, random.nextInt(5) + 1, random.nextInt(5) + 1};
+        int[] precos = {random.nextInt(10001) + 25000, random.nextInt(10001) + 25000, random.nextInt(10001) + 25000};
         
-        for(int i=0; i<tamanho.length; i++){
-            System.out.println(i+": " + "Tamanho:" +tamanho[i]+ " " + "Preço:"+preco[i]);
+        for(int i = 0; i < capacidades.length; i++) {
+            System.out.println((i + 1) + " - Capacidade: " + capacidades[i] + " (" + precos[i] + "€)");
         }
         
-        System.out.println("4: Cancelar");
-        System.out.println("Escreva a opção:");
-        int opcao = scanner.nextInt();
-        switch (opcao){
-            case 1:
-                mapa.put(null , new Instalacao(tamanho[0]));
-                zoo.removerDinheiro(preco[0]);
-                break;
-            case 2:
-                mapa.put(null , new Instalacao(tamanho[1]));
-                zoo.removerDinheiro(preco[1]);
-                break;
-            case 3:
-                mapa.put(null , new Instalacao(tamanho[2]));
-                zoo.removerDinheiro(preco[2]);
-                break;
-            case 4:
-                break;
-            default:
-                    System.out.println("O número não existe.");
-                    break;
+        System.out.println("0 - Cancelar");
+        
+        int opcao;
+        
+        do {
+            System.out.print("Digite o código da opção: ");
+            opcao = scanner.nextInt();
+        } while (opcao >= 0 && opcao <= capacidades.length);
+        
+        if (opcao == 0) {
+            System.out.println("Cancelou a construção.");
+            return;
         }
+        
+        int capacidade = capacidades[opcao - 1];
+        int preco = precos[opcao - 1];
+        
+        try {
+            zoo.gastarDinheiro(preco);
+        } catch (DinheiroInsuficienteException ex) {
+            System.out.println("Ocorreu um erro, a construção foi cancelada.");
+            return;
+        }
+        
+        Instalacao instalacao = new Instalacao(capacidade);
+        zoo.adicionarInstalacao(instalacao);
+        zoo.getHistorico().adicionarConstrucao(instalacao, preco);
+        System.out.println("Construi uma nova instalação de capacidade " + capacidade + " com o id " + instalacao.getId() + ".");
     }
     
     public void calendárioChines() {
