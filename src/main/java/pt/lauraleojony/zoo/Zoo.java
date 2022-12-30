@@ -23,6 +23,10 @@ public class Zoo {
     public Zoo(double dinheiro, int segurancas) {
         this.dinheiro = dinheiro;
         this.segurancas = segurancas;
+        this.instalacoes = new ArrayList<>();
+        this.animais = new ArrayList<>();
+        this.historico = new Historico();
+        this.obituario = new Obituario();
     }
     
     public void adicionarDinheiro(double dinheiro) {
@@ -60,6 +64,54 @@ public class Zoo {
             instalacao.removerAnimal(animal);
         }
         animais.remove(animal);
+    }
+    
+    // retorna o animal que tem o id ou null caso não exista
+    public Animal getAnimal(int id) {
+        for (Animal animal : animais) {
+            if (animal.getId() == id) return animal;
+        }
+        return null;
+    }
+    
+    public ArrayList<Animal> getAnimaisComInstalacao() {
+        ArrayList<Animal> arr = new ArrayList<>();
+        
+        for (Instalacao instalacao : instalacoes) {
+            arr.addAll(instalacao.getAnimais());
+        }
+        
+        return arr;
+    }
+    
+    public ArrayList<Animal> getAnimaisComMutacao() {
+        ArrayList<Animal> arr = new ArrayList<>();
+        
+        for (Animal animal : animais) {
+            if (animal.determinarAlbinismo() || animal.determinarHeterocromia()) arr.add(animal);
+        }
+        
+        return arr;
+    }
+    
+    public ArrayList<Animal> getAnimaisComAlbinismo() {
+        ArrayList<Animal> arr = new ArrayList<>();
+        
+        for (Animal animal : animais) {
+            if (animal.determinarAlbinismo()) arr.add(animal);
+        }
+        
+        return arr;
+    }
+    
+    public ArrayList<Animal> getAnimaisComHeterocromia() {
+        ArrayList<Animal> arr = new ArrayList<>();
+        
+        for (Animal animal : animais) {
+            if (animal.determinarHeterocromia()) arr.add(animal);
+        }
+        
+        return arr;
     }
     
     // retorna a instalação de um animal ou null caso este não esteja numa instalação

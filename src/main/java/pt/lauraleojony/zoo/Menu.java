@@ -30,7 +30,14 @@ public class Menu {
         while (!sair) {
             escolhaOpcao();
         
-            int opcao = scanner.nextInt();
+            int opcao;
+            
+            try {
+                opcao = scanner.nextInt();
+            } catch (InputMismatchException ex) {
+                System.out.println("Opção inválida.");
+                continue;
+            }
 
             switch (opcao) {
                 case 0: // sair da aplicação
@@ -38,7 +45,7 @@ public class Menu {
                     sair();
                     break;
                 case 1: // adquirir animal aleatório
-                    criateRandomAnimal();
+                    createRandomAnimal();
                     break;
                 case 2: // adquirir animal com característica genética
                     caracAnimal();
@@ -47,8 +54,10 @@ public class Menu {
                     construirInstalacao();
                     break;
                 case 4: // colocar animal em instalação
+                    colocarAnimalEmInstalacao();
                     break;
                 case 5: // calendário chinês
+                    calendarioChines();
                     break;
                 case 6: // listar animais
                     listaAnimais();
@@ -57,12 +66,13 @@ public class Menu {
                     listaAnimaisCarateristica();
                     break;
                 case 8: // listar animais com dada mutação
-                    listaAnimaisMutação();
+                    listaAnimaisMutacao();
                     break;
                 case 9: // listar instalações
                     listaInstalacao();
                     break;
                 case 10: // retrato de família animal
+                    retratoFamiliaAnimal();
                     break;
                 case 11: // obituário
                     System.out.println(zoo.getObituario());
@@ -71,8 +81,10 @@ public class Menu {
                     System.out.println(zoo.getHistorico());
                     break;
                 case 13: // periodo contabilistico
+                    periodoContabilistico();
                     break;
                 case 14: // jumanji
+                    jumanji();
                     break;
                 default:
                     System.out.println("Opção inválida.");
@@ -109,7 +121,7 @@ public class Menu {
         }
     }
     
-    public void criateRandomAnimal(){
+    public void createRandomAnimal(){
         int custo = calcularCustoAquisicoes();
         
         try {
@@ -149,12 +161,17 @@ public class Menu {
         
         System.out.println("0 - Cancelar");
 
-        int opcao;
-
+        int opcao = -1;
+        
         do {
             System.out.print("Digite o código da opção: ");
-            opcao = scanner.nextInt();
-        } while (opcao >= 0 && opcao <= 3); // [1,3]
+            
+            try {
+                opcao = scanner.nextInt();
+            } catch (InputMismatchException ex) {
+                System.out.println("Opção inválida.");
+            }
+        } while (opcao < 0 || opcao > 3); // [1,3]
         
         if (opcao == 0) {
             zoo.adicionarDinheiro(custo);
@@ -168,6 +185,8 @@ public class Menu {
 
         System.out.print("Digite o nome do animal: ");
 
+        scanner.nextLine(); // limpar scanner
+        
         String nome = scanner.nextLine();
 
         animal.setNome(nome);
@@ -179,21 +198,32 @@ public class Menu {
     public void caracAnimal(){
         System.out.println("Escolha uma opção: ");
         
-        String[] genomas = (String[]) GENOMAS_ANIMAIS.keySet().toArray();
+        Set<String> set = GENOMAS_ANIMAIS.keySet();
+        
+        String[] genomas = new String[set.size()];
         
         int i = 0;
+        for (String s : set) {
+            genomas[i++] = s;
+        }
+        
+        i = 0;
         for (String genoma : genomas) {
             System.out.println(++i + " - " + genoma + " (" + GENOMAS_PRECOS.get(genoma) + "€)");
         }
         
         System.out.println("0 - Cancelar");
         
-        int opcao;
+        int opcao = -1;
         
         do {
             System.out.print("Digite o código da opção: ");
-            opcao = scanner.nextInt();
-        } while (opcao >= 0 && opcao <= GENOMAS_ANIMAIS.size());
+            try {
+                opcao = scanner.nextInt();
+            } catch (InputMismatchException ex) {
+                System.out.println("Opção inválida.");
+            }
+        } while (opcao < 0 || opcao > GENOMAS_ANIMAIS.size());
         
         if (opcao == 0) {
             System.out.println("Cancelou a aquisição.");
@@ -239,6 +269,8 @@ public class Menu {
         System.out.println("Adquiriu " + animal + ".");
         
         System.out.print("Digite o nome do animal: ");
+        
+        scanner.nextLine(); // limpar scanner
 
         String nome = scanner.nextLine();
 
@@ -258,12 +290,16 @@ public class Menu {
         
         System.out.println("0 - Cancelar");
         
-        int opcao;
+        int opcao = -1;
         
         do {
             System.out.print("Digite o código da opção: ");
-            opcao = scanner.nextInt();
-        } while (opcao >= 0 && opcao <= capacidades.length);
+            try {
+                opcao = scanner.nextInt();
+            } catch (InputMismatchException ex) {
+                System.out.println("Opção inválida.");
+            }
+        } while (opcao < 0 || opcao > capacidades.length);
         
         if (opcao == 0) {
             System.out.println("Cancelou a construção.");
@@ -283,10 +319,21 @@ public class Menu {
         Instalacao instalacao = new Instalacao(capacidade);
         zoo.adicionarInstalacao(instalacao);
         zoo.getHistorico().adicionarConstrucao(instalacao, preco);
-        System.out.println("Construi uma nova instalação de capacidade " + capacidade + " com o id " + instalacao.getId() + ".");
+        System.out.println("Construiu uma nova instalação de capacidade " + capacidade + " com o id " + instalacao.getId() + ".");
     }
     
-    public void calendárioChines() {
+    public void colocarAnimalEmInstalacao() {
+        String str = "----- @ Animais @ -----\n";
+        
+        int i = 0;
+        for (Animal a : zoo.getAnimais()) {
+            str  += ++i + ". " + a + "\n";
+        }
+        
+        str += "-------------------------\n";
+    }
+    
+    public void calendarioChines() {
     }
     
     public void listaAnimais() {
@@ -328,7 +375,7 @@ public class Menu {
         }
     }
     
-    public void listaAnimaisMutação(){
+    public void listaAnimaisMutacao(){
         System.out.print("Digite a mutação que deseja procurar: ");
         
         String mutacao = scanner.nextLine();
@@ -375,11 +422,11 @@ public class Menu {
         System.out.println("-------------------------");
     }
     
-    public void retatoFamiliaAnimal(){
+    public void retratoFamiliaAnimal(){
         
     }
     
-    public void períodoContabilistico(){
+    public void periodoContabilistico() {
         
     }
     
@@ -390,4 +437,5 @@ public class Menu {
     public void sair(){
         
     }
+    
 }

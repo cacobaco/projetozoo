@@ -11,22 +11,21 @@ import pt.lauraleojony.zoo.exceptions.InstalacaoCheiaException;
  */
 public class Instalacao implements Limpavel {
     
-    private static int count = 1;
+    private static int count = 0;
     private final int id;
     private final int capacidade;
     private int empregados;
     private ArrayList<Animal> animais;
     
     public Instalacao(int capacidade) {
-        count++;
-        this.id = count;
+        this.id = ++count;
         this.capacidade = capacidade;
-        this.empregados = capacidade * 2;
+        this.empregados = (capacidade / 2 < 1) ? 1 : capacidade / 2;
         this.animais = new ArrayList<>();
     }
     
     public int calcularCustoLimpeza() {
-        return empregados * 40000;
+        return empregados * 10000;
     }
     
     public void adicionarAnimal(Animal animal) throws InstalacaoCheiaException {

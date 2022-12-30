@@ -7,7 +7,7 @@ package pt.lauraleojony.zoo;
 public class Main {
     
     public static void main(String[] args) {
-        Zoo zoo = new Zoo(50000, 5);
+        Zoo zoo = new Zoo(500000, 5);
         Menu menu = new Menu(zoo);
         menu.menuPrincipal();
     }
